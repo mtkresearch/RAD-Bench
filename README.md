@@ -6,7 +6,7 @@ Context Utilization in Multi-Turn Dialogues**
 Tzu-Lin Kuo*, Mu-Wei, Hsieh,
 Fu-Chieh Chang, Po-Chun Hsu, Da-Shan Shiu, Feng-Ting Liao*
 
-*core contributers
+*core contributors
 
 ## Installation
 TBA
