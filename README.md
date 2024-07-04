@@ -10,6 +10,10 @@ Fu-Chieh Chang, Po-Chun Hsu, Da-Shan Shiu, Feng-Ting Liao*
 
 .... paper coming soon.
 
+## Benchmark results
+
+![model_radar](./asset/model_radar.png)
+
 ## Installation
 ```
 pip install -r requirements.txt

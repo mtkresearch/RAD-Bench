@@ -1,6 +1,19 @@
 # %%
 import json
 import pprint
+import os
+_CUR_DIR=os.path.dirname(os.path.abspath(__file__))
+
+
+_model_name_map = {
+    "gpt-4o": "GPT-4o",
+    "gpt-35-turbo-16k-4k": "GPT-35-Turbo",
+    "llama3-70b-instruct": "Llama3-70B",
+    "mixtral-8x22b-instruct": "Mixtral-8x22B", 
+    "breexe-8x7b-instruct-v01": "BreeXe-8x7B",
+    "llama3-8b-instruct": "Llama3-8B",
+    "breeze-7B-32k-instruct-v10": "Breeze-7B"
+}
 
 def read_jsonl_file(file_path):
     results = []
@@ -47,7 +60,7 @@ def filter_questions_with_model(data, model_name):
 
 def get_ans(judge_model, model_list) -> dict:
     ans = {}
-    filename = "gpt-4o_KI_eval_all.jsonl"
+    filename = f"{_CUR_DIR}/../data/model_judgment/gpt-4o.jsonl"
     judge_data = read_jsonl_file(filename)
     for model in model_list:
         model_data = filter_questions_with_model(judge_data, model)
@@ -82,9 +95,10 @@ def plot_radar_chart(averages, title):
     angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
     angles += angles[:1]
 
-    fig, ax = plt.subplots(figsize=(8, 16), subplot_kw=dict(polar=True))
+    fig, ax = plt.subplots(figsize=(12, 8), subplot_kw=dict(polar=True))
 
     for model, aspects in averages.items():
+        model_name = _model_name_map[model]
         values = []
         for task in labels:
             for aspect in ['KI', 'KR']:
@@ -92,7 +106,7 @@ def plot_radar_chart(averages, title):
                     values.append(aspects[aspect][task])
                     break
         values += values[:1]
-        ax.plot(angles, values, label=model)
+        ax.plot(angles, values, label=model_name)
         ax.fill(angles, values, alpha=0.25)
 
     ax.set_theta_offset(np.pi / 2)
@@ -107,9 +121,11 @@ def plot_radar_chart(averages, title):
 
     plt.ylim(0, 10)
 
-    plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.1))
+    # ax.legend()
+    plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.2))
     plt.title(title)
     plt.show()
+    fig.savefig(f"{_CUR_DIR}/../../asset/model_radar.png")
 
 # Function to plot bar charts for each task
 def plot_bar_charts(averages):
@@ -147,7 +163,7 @@ all_ans = get_ans("gpt-4o", all_models)
 
 all_averages = calculate_averages(all_ans)
 
-plot_radar_chart(all_averages, "performance of each model")
+plot_radar_chart(all_averages, "Performance of each model")
 
 
 
@@ -173,7 +189,15 @@ for task in columns:
                 break
     df[task] = scores
 
-df
+
+df['average'] = df.mean(axis=1)
+average_row = df.mean(axis=0)
+df.loc['average'] = average_row
+print(df)
+
+
+# df.to_markdown("result.md")
+df.to_latex("result.tex", float_format="%.2f")
 
 
 # %%
