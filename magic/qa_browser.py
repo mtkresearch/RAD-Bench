@@ -59,7 +59,7 @@ def display_pairwise_answer(
 
     for turn_id in ["1", "2", "3"]:    
         judgment_dict = {}
-        for jk in [f"KI-{turn_id}-turn", f"KR-{turn_id}-turn", f"TR-{turn_id}-turn"]:
+        for jk in [f"CS-{turn_id}-turn", f"CR-{turn_id}-turn", f"TR-{turn_id}-turn"]:
             judgment_dict.update(model_judgments_normal_single.get((judge_model_name, jk), {}) )
         title = f"##### Model Judgment ({turn_id} turn)\n"
         jug_a_exp = get_single_judge_explanation((qid, model_selector1), judgment_dict)
@@ -83,7 +83,7 @@ def display_single_answer(question_selector, model_selector1, request: gr.Reques
     # BRUTE FORCE merging judgment
     for turn_id in ["1", "2", "3"]:    
         judgment_dict = {}
-        for jk in [f"KI-{turn_id}-turn", f"KR-{turn_id}-turn", f"TR-{turn_id}-turn"]:
+        for jk in [f"CS-{turn_id}-turn", f"CR-{turn_id}-turn", f"TR-{turn_id}-turn"]:
             judgment_dict.update(model_judgments_normal_single.get((judge_model_name, jk), {}) )
     
         explanation = f"##### Model Judgment ({turn_id} turn)\n\n" + get_single_judge_explanation(

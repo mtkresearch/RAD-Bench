@@ -10,7 +10,6 @@ q_beg=0
 q_end=89
 parallel=16
 question_file="data/questions.jsonl"
-retry=0 # if specified, it inferenes problems in RETRY_IDS (specified in gen_api_answer.py)
 
 exec > run_${model_name}_inference_${q_beg}-${q_end}.log 2>&1
 
@@ -24,6 +23,5 @@ python3 gen_api_answer.py \
     --answer-file $answer_file \
     --num-fewshots $num_fewshots \
     --question-file $question_file \
-    --retry $retry \
     --parallel $parallel
 cd -

@@ -5,13 +5,13 @@ BENCH_NAME="magic"
 LLM_JUG_DIR=..
 JUDGE_FILE="./data/judge_prompts.jsonl"
 JUDGE_MODEL="gpt-4o"
-# JUDGE_MODEL="breexe"
+
 REF_ANS_MODEL="reference_ans_model" # decide which reference answer to use (so we can create a reference answer file and list it here)
 MODE="single"
 MODEL_LIST="gpt-35-turbo-16k-4k gpt-4o breexe-8x7b-instruct-v01 breeze-7B-32k-instruct-v10 llama3-70b-instruct mixtral-8x22b-instruct llama3-8b-instruct"
-# MODEL_LIST="deepseek-chat "
+
 NUM_PROC=16
-Q_BEG=88
+Q_BEG=0
 Q_END=89
 QUESTION_FILE="data/questions.jsonl"
 OUTPUT_FILE="model_judgment/${JUDGE_MODEL}_${Q_BEG}-${Q_END}.jsonl"

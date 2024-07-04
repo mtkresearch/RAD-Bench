@@ -16,8 +16,8 @@ import anthropic
 from conversation import construct_conv_template
 
 # Judge mode keys
-JUDGE_MODE_KEYS = ["KI-1-turn", "KI-2-turn", "KI-3-turn",
-                    "KR-1-turn", "KR-2-turn", "KR-3-turn",
+JUDGE_MODE_KEYS = ["CS-1-turn", "CS-2-turn", "CS-3-turn",
+                    "CR-1-turn", "CR-2-turn", "CR-3-turn",
                     "TR-1-turn", "TR-2-turn", "TR-3-turn"]
 
 # API setting constants
