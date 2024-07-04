@@ -8,14 +8,36 @@ Fu-Chieh Chang, Po-Chun Hsu, Da-Shan Shiu, Feng-Ting Liao*
 
 *core contributors
 
+.... paper coming soon.
+
 ## Installation
-TBA
+```
+pip install -r requirements.txt
+```
 
 ## Inference
-TBA
+Simply do,
+```
+cd magic/script
+sh run_inference.sh
+```
 
 ## Evaluation
-TBA
+Simply do,
+```
+cd magic/script
+sh run_evaluation.sh
+```
+
+## Visulization
+To see the results, do
+```
+cd magic/script
+sh run_qa_browser.sh
+```
+then open `localhost:1234` in your browser
+
+
 
 ## Citation
 Please cite this repo with
