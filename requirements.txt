@@ -1,0 +1,6 @@
+openai==0.28.0
+anthropic
+rich
+tqdm
+vllm
+gradio
