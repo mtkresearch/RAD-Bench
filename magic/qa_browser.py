@@ -384,7 +384,7 @@ def build_demo():
     build_question_selector_map()
     _reload_info()
     with gr.Blocks(
-        title="MT RAG Bench Browser",
+        title="MAGIC-Bench Browser",
         theme=gr.themes.Base(text_size=gr.themes.sizes.text_lg),
         css=block_css,
     ) as demo:

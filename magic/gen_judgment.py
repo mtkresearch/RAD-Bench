@@ -193,7 +193,7 @@ if __name__ == "__main__":
             model_answers,
             judges[f"CS-{turn}-turn"],
             turn,
-            "KI",
+            "CS",
             baseline_model,
             ref_answers
         )
@@ -203,7 +203,7 @@ if __name__ == "__main__":
             model_answers,
             judges[f"CR-{turn}-turn"],
             turn,
-            "KR",
+            "CR",
             baseline_model,
             ref_answers,
         )

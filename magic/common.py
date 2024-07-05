@@ -136,7 +136,7 @@ def run_judge_single(question, answer, judge, ref_answer, turn, type):
                 kwargs["reference"] = ref_answer["choices"][0]["turns"][2]
     else:
         kwargs["reference"] = ref_answer["choices"][0]["turns"][turn-1]
-        if type == "KR":
+        if type == "CR":
             # context is needed
             context = ""
             if isinstance(question["contexts"][turn-1], list):

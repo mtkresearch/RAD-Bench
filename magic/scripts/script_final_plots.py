@@ -43,12 +43,12 @@ def get_avg_score(data):
     finance_scores = get_task_turn_avg_score(data, "finance")
     customer_scores = get_task_turn_avg_score(data, "customer")
     travel_scores = get_task_turn_avg_score(data, "travel")
-    ans["KI"] = {
+    ans["CS"] = {
         "academic": academic_scores,
         "news": news_scores,
         "education": education_scores,
     }
-    ans["KR"] = {
+    ans["CR"] = {
         "finance": finance_scores,
         "customer": customer_scores,
         "travel": travel_scores,
@@ -175,6 +175,7 @@ plot_bar_charts(all_averages)
 import pandas as pd
 
 rows = ["gpt-4o", "gpt-35-turbo-16k-4k", "llama3-70b-instruct", "mixtral-8x22b-instruct", "breexe-8x7b-instruct-v01", "llama3-8b-instruct", "breeze-7B-32k-instruct-v10"]
+rows = [_model_name_map[r] for r in rows]
 columns = ['academic', 'news', 'education', 'finance', 'customer', 'travel']
 
 df = pd.DataFrame(index = rows, columns=columns)
@@ -196,7 +197,7 @@ df.loc['average'] = average_row
 print(df)
 
 
-# df.to_markdown("result.md")
+df.to_markdown("result.md")
 df.to_latex("result.tex", float_format="%.2f")
 
 

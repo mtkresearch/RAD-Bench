@@ -28,7 +28,7 @@ def display_details(question_id):
                     "Context": context,
                     "Reference": entry["references"][i] if i < len(entry["references"]) else "",
                 }
-                if entry['aspect'] == "KR":
+                if entry['aspect'] == "CR":
                     turn_detail["Evidence Text"] = entry["evidence_text"][i] if i < len(entry["evidence_text"]) else ""
                 turn_details.append(turn_detail)
             return turn_details
@@ -48,7 +48,7 @@ def get_question_ids(category, aspect):
 with gr.Blocks() as demo:
     gr.Markdown("# Interactive JSONL Viewer")
     
-    aspect = gr.Dropdown(label="Select Aspect", choices=["KI", "KR", "TR"])
+    aspect = gr.Dropdown(label="Select Aspect", choices=["CS", "CR", "TR"])
     category = gr.Dropdown(label="Select Category", choices=get_categories())
     question_id = gr.Dropdown(label="Select Question ID", choices=[], interactive=True)
     
