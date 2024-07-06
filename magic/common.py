@@ -12,6 +12,7 @@ import time
 from typing import Optional
 import openai
 import anthropic
+from openai import OpenAI
 
 from conversation import construct_conv_template
 
@@ -22,7 +23,7 @@ JUDGE_MODE_KEYS = ["CS-1-turn", "CS-2-turn", "CS-3-turn",
 
 # API setting constants
 API_MAX_RETRY = 16
-API_RETRY_SLEEP = 500
+API_RETRY_SLEEP = 100
 API_ERROR_OUTPUT = "$ERROR$"
 
 TIE_DELTA = 0.1
@@ -122,7 +123,7 @@ def load_judge_prompts(prompt_file: str):
 
 def run_judge_single(question, answer, judge, ref_answer, turn, type):
     """
-    type should be KI, KR, or TR
+    type should be CS, CR, or TR
     """
     kwargs = {}
     model = judge.model_name
@@ -233,25 +234,32 @@ def play_a_match_single(match: MatchSingle, output_file: str):
 
 
 def chat_completion_openai(model, conv, temperature, max_tokens, api_dict=None):
-    if api_dict is not None:
-        openai.api_base = api_dict["api_base"]
-        openai.api_key = api_dict["api_key"]
+    # if api_dict is not None:
+    #     openai.api_base = api_dict["api_base"]
+    #     openai.api_key = api_dict["api_key"]
+    client = OpenAI(api_key=api_dict["api_key"], base_url=api_dict["api_base"])
     output = API_ERROR_OUTPUT
     for _ in range(API_MAX_RETRY):
         try:
             messages = conv.to_openai_api_messages()
             # print(messages)
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
+            # response = openai.ChatCompletion.create(
                 model=model,
                 messages=messages,
                 n=1,
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
-            output = response["choices"][0]["message"]["content"]
+            output = response.choices[0].message.content
+            # output = response["choices"][0]["message"]["content"]
             break
-        except openai.error.OpenAIError as e:
-            print(type(e), e)
+        # except openai.error.OpenAIError as e:
+        except openai.OpenAIError as e:
+            print(type(e), e, response)
+            time.sleep(API_RETRY_SLEEP)
+        except Exception as e:
+            print(type(e), e, response)
             time.sleep(API_RETRY_SLEEP)
 
     return output

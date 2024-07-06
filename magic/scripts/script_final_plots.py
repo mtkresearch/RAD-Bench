@@ -101,7 +101,7 @@ def plot_radar_chart(averages, title):
         model_name = _model_name_map[model]
         values = []
         for task in labels:
-            for aspect in ['KI', 'KR']:
+            for aspect in ['CS', 'CR']:
                 if task in aspects[aspect]:
                     values.append(aspects[aspect][task])
                     break
@@ -137,7 +137,7 @@ def plot_bar_charts(averages):
         
         for model, aspects in averages.items():
             models.append(model)
-            for aspect in ['KI', 'KR']:
+            for aspect in ['CS', 'CR']:
                 if task in aspects[aspect]:
                     scores.append(aspects[aspect][task])
                     break
@@ -184,7 +184,7 @@ for task in columns:
     scores = []
     
     for model, aspects in all_averages.items():
-        for aspect in ['KI', 'KR']:
+        for aspect in ['CS', 'CR']:
             if task in aspects[aspect]:
                 scores.append(aspects[aspect][task])
                 break
@@ -214,7 +214,7 @@ def plot_line_plots(data):
         plt.figure(figsize=(10, 6))
         
         for model, aspects in data.items():
-            for aspect in ['KI', 'KR']:
+            for aspect in ['CS', 'CR']:
                 if task in aspects[aspect]:
                     scores = aspects[aspect][task]
                     plt.plot(turn_indices, scores, marker='o', label=model, markersize = 3)
@@ -247,7 +247,7 @@ def plot_line_plots(data):
     plt.figure(figsize=(10, 6))
     
     for model, aspects in data.items():
-        for aspect in ['KI', 'KR']:
+        for aspect in ['CS', 'CR']:
             if task in aspects[aspect]:
                 scores = aspects[aspect][task]
                 plt.plot(turn_indices, scores, marker='o', label=model, markersize = 3)

@@ -20,7 +20,6 @@ from common import (
     load_questions,
     load_questions_with_idx,
     chat_completion_openai,
-    construct_1st_turn_question,
     construct_turn_question,
     reorg_answer_file
 )
@@ -145,16 +144,11 @@ if __name__ == "__main__":
     if args.openai_api_base is not None:
         openai.api_base = args.openai_api_base
 
-    fewshot_file = f"data/fewshot_questions.jsonl"
     question_file = f"question.jsonl"
     if args.question_file is not None:
         print(f".... found question file. Use {args.question_file} instead of default {question_file}")
         question_file = args.question_file
     
-    if args.fewshot_file is not None:
-        print(f".... found fewshot file. Use {args.fewshot_file} instead of default {fewshot_file}")
-        fewshot_file = args.fewshot_file
-
     questions = load_questions(question_file, args.question_begin, args.question_end)
     if args.retry is not None:
         questions = load_questions_with_idx(question_file, args.retry)

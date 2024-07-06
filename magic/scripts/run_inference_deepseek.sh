@@ -1,12 +1,12 @@
-export api_base="<YOUR_MODEL_API_BASE>"
-export api_key="<YOUR_MODEL_API_KEY>"
+export api_base="https://api.deepseek.com"
+export api_key="sk-73e8a37f2f1a4e08b404bb0abd0dd3fd"
 
 bench_name="magic"
-model_name="breeze-7B-32k-instruct-v10"
+model_name="deepseek-chat"
 
 answer_file="data/model_answer/${model_name}.jsonl"
 q_beg=0
-q_end=89
+q_end=88
 parallel=16
 question_file="data/questions.jsonl"
 
