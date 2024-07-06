@@ -5,8 +5,22 @@ bench_name="magic"
 model_name="deepseek-chat"
 
 answer_file="data/model_answer/${model_name}.jsonl"
-q_beg=0
-q_end=88
+# edu-12
+q_beg=22
+q_end=23
+
+# news-7
+q_beg=37
+q_end=38
+
+# news-14
+q_beg=44
+q_end=445
+
+# news-17
+q_beg=47
+q_end=48
+
 parallel=16
 question_file="data/questions.jsonl"
 
@@ -21,5 +35,6 @@ python3 gen_api_answer.py \
     --question-end $q_end \
     --answer-file $answer_file \
     --question-file $question_file \
+    --retry 47 \
     --parallel $parallel
 cd -

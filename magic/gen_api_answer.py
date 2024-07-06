@@ -64,7 +64,7 @@ def get_answer(
             for hist_q, hist_a in zip(questions, answers):
                 conv.append_message(conv.roles[0], hist_q)
                 conv.append_message(conv.roles[1], hist_a)
-            input_prompt = construct_turn_question(question, 0)
+            input_prompt = construct_turn_question(question, j)
 
             conv.append_message(conv.roles[0], input_prompt)
             conv.append_message(conv.roles[1], None)
