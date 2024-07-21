@@ -11,6 +11,7 @@ import os
 import time
 import concurrent.futures
 from typing import Optional, List
+import sys
 
 import openai
 import shortuuid
@@ -19,6 +20,7 @@ import tqdm
 from common import (
     load_questions,
     load_questions_with_idx,
+    load_model_answers,
     chat_completion_openai,
     construct_turn_question,
     reorg_answer_file
@@ -137,6 +139,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--retry", nargs="+", type=int, default=None, help="Whether to inference again for error questions"
     )
+    parser.add_argument(
+        "--skip-inferenced", action="store_true", help="Whetehr to skip the ones that are inferenced."
+    )
     parser.add_argument("--openai-api-base", type=str, default=None)
     parser.add_argument("--question-file", type=str, default=None)
     args = parser.parse_args()
@@ -153,17 +158,27 @@ if __name__ == "__main__":
     if args.retry is not None:
         questions = load_questions_with_idx(question_file, args.retry)
 
+    model_name = args.model.split('/')[-1]
     if args.answer_file:
         answer_file = args.answer_file
     else:
-        model_name = args.model.split('/')[-1]
         answer_file = f"model_answer/{model_name}"
         answer_file += ".jsonl"
     print(f"Output to {answer_file}")
-
+    
+    model_answers = load_model_answers("data/model_answer", model_name)
+    skip_qids = set()
+    if args.skip_inferenced:
+        skip_qids = model_answers[model_name].keys()
+        print(f"....Skipping inferenced. {model_name} already contains {len(skip_qids)} inferenced questions")
+    
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.parallel) as executor:
         futures = []
         for question in questions:
+            qid = question['question_id']
+            if qid in skip_qids:
+                print(f".... Skipping {qid}")
+                continue
             future = executor.submit(
                 get_answer,
                 question,

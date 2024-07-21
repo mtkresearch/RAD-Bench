@@ -24,6 +24,8 @@ def construct_conv_template(model):
         return get_conv_template("llama-3")
     elif model in ["gpt-35-turbo-16k-4k", "gpt-35-turbo", "gpt-4", "gpt-4o", "deepseek-chat"]:
         return get_conv_template("chatgpt")
+    elif "gemma" in model.lower():
+        return get_conv_template("gemma")
     else:
         raise ValueError("Invalid model name for constructing conv template")
 

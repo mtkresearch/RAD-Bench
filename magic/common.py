@@ -85,7 +85,7 @@ def load_questions_with_idx(question_file: str, ids: list):
                     questions.append(json.loads(line))
     return questions
 
-def load_model_answers(answer_dir: str):
+def load_model_answers(answer_dir: str, which_model: str = None):
     """Load model answers.
 
     The return value is a python dict of type:
@@ -97,6 +97,10 @@ def load_model_answers(answer_dir: str):
 
     for filename in filenames:
         model_name = os.path.basename(filename)[:-6]
+        
+        if which_model is not None and model_name != which_model:
+            continue
+
         answer = {}
         with open(filename, encoding="utf-8") as fin:
             for line in fin:
@@ -247,7 +251,7 @@ def chat_completion_openai(model, conv, temperature, max_tokens, api_dict=None):
             # response = openai.ChatCompletion.create(
                 model=model,
                 messages=messages,
-                n=1,
+                # n=1,
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
@@ -256,8 +260,10 @@ def chat_completion_openai(model, conv, temperature, max_tokens, api_dict=None):
             break
         # except openai.error.OpenAIError as e:
         except openai.OpenAIError as e:
-            print(type(e), e, response)
-            time.sleep(API_RETRY_SLEEP)
+            # print(type(e), e, response)
+            # time.sleep(API_RETRY_SLEEP)
+            print(type(e), e)
+            # return API_ERROR_OUTPUT
         except Exception as e:
             print(type(e), e, response)
             time.sleep(API_RETRY_SLEEP)
