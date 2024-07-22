@@ -18,7 +18,7 @@ from typing import List, Any, Dict, Union, Tuple
 def construct_conv_template(model):
     if "breexe" in model or "breeze" in model:
         return get_conv_template('breexe')
-    elif "mixtral" in model:
+    elif "mixtral" in model.lower() or "mistral" in model.lower():
         return get_conv_template("mistral")
     elif "llama3" in model:
         return get_conv_template("llama-3")

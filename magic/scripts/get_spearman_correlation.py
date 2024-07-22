@@ -4,6 +4,7 @@ from scipy import stats
 import matplotlib.pyplot as plt
 import pandas as pd
 from itertools import product
+import seaborn as sns
 
 # As of 240721
 lmsys_results = {
@@ -48,7 +49,8 @@ print(df_final)
 # n_cols = len(x_keys)
 
     
-x_key = "long-query"
+# Assuming df_final is already defined and contains the data
+x_key = "hard-all"
 y_key = "average"
 x_vals = df_final[x_key]
 y_vals = df_final[y_key]
@@ -59,15 +61,79 @@ correlation, p_value = stats.spearmanr(x_vals, y_vals)
 print(f"Spearman correlation coefficient: {correlation:.4f}")
 print(f"P-value: {p_value:.4f}")
 
-# Create a scatter plot
-plt.figure(figsize=(10, 6))
-plt.scatter(x_vals, y_vals)
+# Create a scatter plot with improvements
+plt.figure(figsize=(12, 8))
+plt.scatter(x_vals, y_vals, color='royalblue', s=100, edgecolors='k', alpha=0.7)
+
+# Annotate each point with the model name, with offset to avoid overlap
 for i, model in enumerate(df_final.index):
-    plt.annotate(model, (x_vals[i], y_vals[i]))
-plt.xlabel(x_key)
-plt.ylabel(y_key)
-plt.title(f'Scatter plot: {x_key} vs {y_key}')
+    plt.annotate(model, (x_vals[i], y_vals[i]), textcoords="offset points", xytext=(5,-5), ha='center', fontsize=10, color='darkred')
+
+plt.xlabel(x_key, fontsize=14)
+plt.ylabel(y_key, fontsize=14)
+plt.title(f'Scatter plot: {x_key} vs {y_key}', fontsize=16)
+
+# Add grid
+plt.grid(True, linestyle='--', alpha=0.7)
+
+# Show plot
 plt.show()
+
+
+#%%
+x_key = "average"
+y_key = "hard-all"
+x_label = "RAD-Bench, score"
+y_label = "Chatbot Arena Rating\n(Hard prompts), score"
+title = 'Scatter Plot: Hard-All vs Average'
+# fontfamily = "Times New Roman"
+fontfamily = "Sans-serif" # "Serif" # "Helvetica"
+fontsize = 28
+
+# Set the style for a clean, professional look
+plt.style.use('seaborn-v0_8')
+sns.set_palette("deep")
+plt.rcParams['font.family'] = fontfamily  # You can change 'Arial' to your preferred font
+
+# Create the plot
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Plot the scatter points
+sns.scatterplot(x=x_key, y=y_key, data=df_final, s=120, ax=ax)
+
+# Add labels for each point
+for idx, row in df_final.iterrows():
+    ax.annotate(idx, (row[x_key], row[y_key]), 
+                xytext=(5, 5), textcoords='offset points', 
+                fontsize=24, fontweight='bold', fontfamily=fontfamily)
+
+# Adjust tick label font size
+ax.tick_params(axis='both', which='major', labelsize=20)
+
+# Customize the plot
+# ax.set_title(title, fontsize=16, fontweight='bold', fontfamily=fontfamily)
+ax.set_xlabel(x_label, fontsize=fontsize, fontfamily=fontfamily)
+ax.set_ylabel(y_label, fontsize=fontsize, fontfamily=fontfamily)
+
+# Add gridlines
+ax.grid(True, linestyle='--', alpha=0.99)
+
+# Adjust the plot range
+ax.set_ylim(1110, 1310)
+ax.set_xlim(6.2, 9.2)
+
+# Add a subtle background color
+ax.set_facecolor('#f0f0f0')
+
+# Calculate and display correlation
+corr, _ = stats.pearsonr(df_final[x_key], df_final[y_key])
+ax.text(0.05, 0.95, f'Correlation: {corr:.2f}', transform=ax.transAxes, 
+        fontsize=fontsize, verticalalignment='top', fontweight="bold", fontfamily=fontfamily)
+
+# Adjust layout and display
+plt.tight_layout()
+plt.show()
+fig.savefig("spearman_correlation.png", dpi=150)
 
 # %%
 # Define the keys for x and y axes
@@ -76,7 +142,7 @@ x_keys = ["hard-all", "hard-en", "long-query"]
 
 # Set up the subplots
 fig, axes = plt.subplots(len(y_keys), len(x_keys), figsize=(15, 15))
-fig.suptitle("Correlation Plots for Various Metrics", fontsize=16)
+fig.suptitle("Correlation Plots for Various Metrics", fontsize=fontsize)
 
 # Generate all combinations of x_keys and y_keys
 combinations = list(product(x_keys, y_keys))
