@@ -87,7 +87,8 @@ def plot_radar_chart(averages, title,
     for label, angle in zip(ax.get_xticklabels(), angles):
         x, y = label.get_position()
         lab = ax.text(x, y, label.get_text(), transform=label.get_transform(),
-                      ha=label.get_ha(), va=label.get_va())
+                      ha=label.get_ha(), va=label.get_va(),
+                      fontsize=legend_font_size)
         lab.set_position((x, y))
         label.set_visible(False)
 

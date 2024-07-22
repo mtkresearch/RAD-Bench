@@ -89,6 +89,7 @@ title = 'Scatter Plot: Hard-All vs Average'
 # fontfamily = "Times New Roman"
 fontfamily = "Sans-serif" # "Serif" # "Helvetica"
 fontsize = 28
+fontweight="normal"
 
 # Set the style for a clean, professional look
 plt.style.use('seaborn-v0_8')
@@ -105,13 +106,13 @@ sns.scatterplot(x=x_key, y=y_key, data=df_final, s=120, ax=ax)
 for idx, row in df_final.iterrows():
     ax.annotate(idx, (row[x_key], row[y_key]), 
                 xytext=(5, 5), textcoords='offset points', 
-                fontsize=24, fontweight='bold', fontfamily=fontfamily)
+                fontsize=24, fontweight=fontweight, fontfamily=fontfamily)
 
 # Adjust tick label font size
 ax.tick_params(axis='both', which='major', labelsize=20)
 
 # Customize the plot
-# ax.set_title(title, fontsize=16, fontweight='bold', fontfamily=fontfamily)
+# ax.set_title(title, fontsize=16, fontweight=fontweight, fontfamily=fontfamily)
 ax.set_xlabel(x_label, fontsize=fontsize, fontfamily=fontfamily)
 ax.set_ylabel(y_label, fontsize=fontsize, fontfamily=fontfamily)
 
@@ -128,12 +129,12 @@ ax.set_facecolor('#f0f0f0')
 # Calculate and display correlation
 corr, _ = stats.pearsonr(df_final[x_key], df_final[y_key])
 ax.text(0.05, 0.95, f'Correlation: {corr:.2f}', transform=ax.transAxes, 
-        fontsize=fontsize, verticalalignment='top', fontweight="bold", fontfamily=fontfamily)
+        fontsize=fontsize, verticalalignment='top', fontweight=fontweight, fontfamily=fontfamily)
 
 # Adjust layout and display
 plt.tight_layout()
 plt.show()
-fig.savefig("spearman_correlation.png", dpi=150)
+fig.savefig("../../asset/spearman_correlation.png", dpi=150)
 
 # %%
 # Define the keys for x and y axes
@@ -141,7 +142,7 @@ y_keys = ["average", "rs_avg", "rr_avg"]
 x_keys = ["hard-all", "hard-en", "long-query"]
 
 # Set up the subplots
-fig, axes = plt.subplots(len(y_keys), len(x_keys), figsize=(15, 15))
+fig, axes = plt.subplots(len(y_keys), len(x_keys), figsize=(30, 26))
 fig.suptitle("Correlation Plots for Various Metrics", fontsize=fontsize)
 
 # Generate all combinations of x_keys and y_keys

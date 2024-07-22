@@ -273,6 +273,7 @@ title_fontsize=fontsize
 labelsize=fontsize
 markersize=12
 linewidth=4
+fontweight="normal"
 
 # Create the plots
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 16))
@@ -280,17 +281,17 @@ fig.subplots_adjust(hspace=0.3)
 
 # Function to style the axes
 def style_axes(ax, title, ylims=[5,9.2]):
-    ax.set_xlabel('Turn Number', fontsize=fontsize, fontweight='bold')
-    ax.set_ylabel('Average Score', fontsize=fontsize, fontweight='bold')
+    ax.set_xlabel('Turn Number', fontsize=fontsize, fontweight=fontweight)
+    ax.set_ylabel('Average Score', fontsize=fontsize, fontweight=fontweight)
     ax.set_xticks(range(1, 4))
     ax.set_xlim(0.5, 3.5)
     ax.set_ylim(*ylims)
     ax.grid(True, linestyle='--', alpha=0.99)
     ax.tick_params(axis='both', which='major', labelsize=labelsize)
-    ax.set_title(title, fontsize=fontsize, fontweight="bold")
+    ax.set_title(title, fontsize=fontsize, fontweight=fontweight)
     # Add title inside the plot
     # ax.text(0.05, 0.95, title, transform=ax.transAxes,
-    #         fontsize=title_fontsize, fontweight='bold', verticalalignment='top')
+    #         fontsize=title_fontsize, fontweight=fontweight, verticalalignment='top')
 # Colors for each model
 # colors = plt.cm.rainbow(np.linspace(0, 1, len(data)))
 
@@ -329,5 +330,5 @@ ax2.legend(fontsize=16, loc='lower left')
 plt.tight_layout()
 plt.show()
 
-fig.savefig("scores_per_turn.png", dpi=150)
+fig.savefig("../../asset/scores_per_turn.png", dpi=150)
 # %%
