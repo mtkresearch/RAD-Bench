@@ -20,7 +20,7 @@ def construct_conv_template(model):
         return get_conv_template('breexe')
     elif "mixtral" in model.lower() or "mistral" in model.lower():
         return get_conv_template("mistral")
-    elif "llama3" in model:
+    elif "llama3" in model.lower() or "llama-3" in model.lower():
         return get_conv_template("llama-3")
     elif model in ["gpt-35-turbo-16k-4k", "gpt-35-turbo", "gpt-4", "gpt-4o", "deepseek-chat"]:
         return get_conv_template("chatgpt")
