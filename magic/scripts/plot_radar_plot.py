@@ -11,6 +11,8 @@ from cycler import cycler
 
 _CUR_DIR=os.path.dirname(os.path.abspath(__file__))
 
+_exclude_models = ["Llama3-8B", "Llama3-70B", "Gemma-2-27B", "Gemma-2-9B"]
+
 _model_name_map = {
     "gpt-4o": "GPT-4o",
     "gpt-35-turbo-16k-4k": "GPT-3.5-Turbo",
@@ -61,6 +63,8 @@ def plot_radar_chart(averages, title,
 
 
     for model, tasks in averages.items():
+        if model in _exclude_models:
+            continue
         # model_name = _model_name_map[model]
         model_name = model
         values = [tasks[l] for l in labels]
@@ -94,7 +98,7 @@ def plot_radar_chart(averages, title,
 
     ax.set_ylim(3.2, 9.5)
 
-    plt.subplots_adjust(bottom=0.25)
+    plt.subplots_adjust(bottom=0.30)
 
     # plt.legend(loc='upper right', bbox_to_anchor=(0.1, 0.2), fontsize=legend_font_size)
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), 
