@@ -12,7 +12,7 @@ Fu-Chieh Chang, Po-Chun Hsu, Da-Shan Shiu, Feng-Ting Liao*
 
 ## Benchmark results
 
-![model_radar](./asset/model_radar.png)
+![model_radar](./asset/model_radar_chart.png)
 |               |   academic |   news |   education |   finance |   customer |   travel |   average |
 |:--------------|-----------:|-------:|------------:|----------:|-----------:|---------:|----------:|
 | GPT-4o        |       8.77 |   8.68 |        8.95 |      9    |       9.1  |     7.87 |      8.73 |
