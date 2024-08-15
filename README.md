@@ -11,7 +11,7 @@ Fu-Chieh Chang, Po-Chun Hsu, Da-Shan Shiu
 This is the official repo of the RAD-Bench.
 
 ## Benchmark results
-
+![correlation](./asset/spearman_correlation_hard-en.png)
 ![model_radar](./asset/model_radar.png)
 |                            |   academic |   news |   education |   finance |   customer |   travel |   average |
 |:---------------------------|-----------:|-------:|------------:|----------:|-----------:|---------:|----------:|
