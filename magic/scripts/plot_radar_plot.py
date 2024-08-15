@@ -11,7 +11,7 @@ from cycler import cycler
 
 _CUR_DIR=os.path.dirname(os.path.abspath(__file__))
 
-_exclude_models = ["Llama3-8B", "Llama3-70B", "Gemma-2-27B", "Gemma-2-9B"]
+_exclude_models = ["Llama3-8B", "Llama3-70B", "Gemma-2-27B", "Gemma-2-9B", "GPT-3.5-Turbo"]
 
 _model_name_map = {
     "gpt-4o": "GPT-4o",
